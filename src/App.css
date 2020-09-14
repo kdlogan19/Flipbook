@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 10vmin;
   pointer-events: none;
 }
 
@@ -11,6 +11,19 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+.flipbook-container{
+  
+  height: 300px;
+  width: 600px;
+}
+
+.demoPage-left {
+  background-color: azure;
+}
+
+.demoPage-right {
+  background-color: bisque;
 }
 
 .App-header {
