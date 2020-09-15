@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  background-image: url("/bg.jpg");
 }
 
 .App-logo {
@@ -7,23 +7,32 @@
   pointer-events: none;
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 .flipbook-container{
-  
-  height: 300px;
-  width: 600px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  /* text-align: let; */
 }
 
 .demoPage-left {
-  background-color: azure;
+  /* background-color: azure; */
+  border-right: white solid;
+  padding: 10 10 10 10;
 }
 
 .demoPage-right {
-  background-color: bisque;
+  /* background-color: bisque; */
+  border-right: white solid;
+  padding:50;
+  margin-left: 30;
 }
 
 .App-header {

@@ -8,9 +8,17 @@ function App() {
   return (
     <div className="App">
       <div className="flipbook-container">
-        <HTMLFlipBook width={300} height={300}>
-          <div className="demoPage-left">Page 1
-          <h1>Starting with the first page</h1>
+        <HTMLFlipBook width={550} height={715}>
+          <div className="demoPage-left">
+            <h3>Page 1</h3>
+            <p>Nulla congue pulvinar pharetra. Cras sed malesuada arcu. Duis eleifend nunc
+             laoreet odio dapibus ac convallis sapien ornare. Nullam a est id diam elementum rhoncus.Ad dicam diceret pri. Cu animal eligendi eam, nam ea alia oratio constituam, ad elit dolore possim est. Usu in nostro delectus, ne definitionem delicatissimi has. Cu sea iriure vivendum dignissim, choro nonumy philosophia ex mea. In usu reque
+             liber fabellas, omnes omittam te per, ei novum percipitur cum. An eum erat facer, persius delectus ei vis.</p>
+             <br></br><br></br>
+            <p>Nulla congue pulvinar pharetra. Cras sed malesuada arcu.
+               Duis eleifend nunc laoreet odio dapibus ac convallis sapien ornare. 
+               Nullam a est id diam elementum rhoncus.Te amet disputando vel. 
+               Cu vim persius consequat consetetur, eam id melius fuisset principes. Clita habemus et vix, ius doming philosophia et. Eos mutat luptatum ad. Ad iudico repudiandae nec, mel an tempor accusata eloquentiam, choro forensibus et eam</p>
           
           </div>
           <div className="demoPage-right">
