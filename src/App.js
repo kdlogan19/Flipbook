@@ -2,17 +2,34 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HTMLFlipBook from "react-pageflip";
+import { FaSearchPlus, FaSearchMinus, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
 
 function App() {
-  let p;
+  var p;
+  var pageNumber = 0;
+
+  const handlePageNumberChange = (event) => {
+    // event.persist()
+    console.log(event.target.value)
+  
+    
+  }
+
+  const jumpToPage = () => {
+    console.log("hi", pageNumber, typeof(pageNumber))
+    if (p){ 
+     p.pageFlip.turnToPage(parseInt(pageNumber))
+     }
+  }
+
   return (
     <div className="App">
       <div className="flipbook-container">
-        <HTMLFlipBook width={300} height={600} ref={(component) => {
+        <HTMLFlipBook width={400} height={600} ref={(component) => {
           (p = component)
           console.log(p)
-        }
+          }
           }>
           
           <div className="demoPage-left">
@@ -23,7 +40,10 @@ function App() {
              <br></br><br></br>
           </div>
           <div className="demoPage-right">          
-            <p>Page 2</p>
+            <div>
+              {/* <img src="/images/2.jpg" style={{objectFit:"content"}} /> */}
+              {/* {p.getPageFlip().loadFromImages["images/2.jpg"]} */}
+            </div>
           </div>
           <div className="demoPage-left">Page 3
             <p> Third page</p>
@@ -37,55 +57,35 @@ function App() {
 
         <div id="fb5-footer">
             
-            <div class="fb5-bcg-tools"></div>
             
-            <a id="fb5-logo" target="_blank" href="http://codecanyon.net/user/flashmaniac?ref=flashmaniac">
-                <img alt="" src="img/logo.png" />
-            </a>
-            
-            <div class="fb5-menu" id="fb5-center">
-                <ul>
+            <div className="fb5-menu" id="fb5-center">
+
+              <div className="fb5-download" href="" style={{padding:10}}>
+                <a title="DOWNLOAD (ZIP)" className="fb5-download" href="img/file.pdf"></a>
+              </div>
+
+              <div>
+                <a title="ZOOM IN" className="fb5-zoom-in" style={{padding:10}}><FaSearchPlus /></a>
+              </div> 
+
+              <div>
+                <a title="ZOOM OUT " className="fb5-zoom-out" style={{padding:10}}> <FaSearchMinus /> </a>
+              </div> 
+
+              <div className="pageNumber-input">
+                <input type="number" onChange={(event) => pageNumber = event.target.value} style={{padding:10}} ></input> 
+              </div> 
                 
-                    {/* <!-- icon download --> */}
-                    <li>
-                        <a title="DOWNLOAD (ZIP)  " class="fb5-download" href="img/file.pdf"></a>
-                    </li>
-                                        
-                    
-                    {/* <!-- icon_zoom_in -->                               */}
-                    <li>
-                        <a title="ZOOM IN" class="fb5-zoom-in"></a>
-                    </li>                               
-                    
-                    {/* <!-- icon_zoom_out --> */}
-                    
-                    <li>
-                        <a title="ZOOM OUT " class="fb5-zoom-out"></a>
-                    </li>                                
-                    
-                    {/* <!-- icon_zoom_auto --> */}
-                    <li>
-                        <a title="ZOOM AUTO " class="fb5-zoom-auto"></a>
-                    </li>                                
-                    
-                    {/* <!-- icon_zoom_original --> */}
-                    <li>
-                        <a title="ZOOM ORIGINAL (SCALE 1:1)" class="fb5-zoom-original"></a>
-                    </li>
-                                    
-                    
-                    {/* <!-- icon_allpages --> */}
-                    <li>
-                        <a title="SHOW ALL PAGES " class="fb5-show-all"></a>
-                    </li>
-                                                    
-                    
-                    {/* <!-- icon_home --> */}
-                    <li>
-                        <a title="SHOW HOME PAGE " class="fb5-home"></a>
-                    </li>
-                                    
-                </ul>
+              <div className="page-change">
+              <button onClick={jumpToPage} style={{padding:10}}> Go</button>
+              </div>  
+
+              <div>
+                <a title="SHOW ALL PAGES " className="fb5-show-all" />
+              </div>                  
+              <div>
+              <a title="SHOW HOME PAGE " className="fb5-home"></a>
+              </div>
             </div>
             
         
