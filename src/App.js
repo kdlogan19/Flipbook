@@ -1,24 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import HTMLFlipBook from "react-pageflip";
-import {
-  FaSearchPlus,
-  FaSearchMinus,
-  FaCompress,
-  FaArrowRight,
-  FaArrowLeft,
-} from "react-icons/fa";
+import Draggable from "react-draggable";
+import { FaSearchPlus, FaSearchMinus, FaCompress } from "react-icons/fa";
 
 function App() {
   var p;
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
 
-  const handlePageNumberChange = (event) => {
-    // event.persist()
-    console.log(event.target.value);
-  };
+  // Default position of the flipbook.
+  const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
+
+  // Making flipbook draggable upon zooming.
+  let enableDraggable = scale > 1;
 
   const jumpToPage = () => {
     console.log("hi", pageNumber, typeof pageNumber);
@@ -29,112 +24,98 @@ function App() {
 
   return (
     <div className="App">
-      <div
-        className="flipbook-container"
-        style={{ transform: `scale(${scale})` }}
+      <Draggable
+        disabled={!enableDraggable}
+        defaultClassNameDragging="dragging"
+        position={draggablePos}
+        defaultPosition={{ x: 0, y: 0 }}
+        onStart={() => setdraggablePos(null)}
       >
-        <HTMLFlipBook
-          width={400}
-          height={600}
-          ref={(component) => {
-            p = component;
-            console.log(p);
+        <span>
+          <div
+            className="flipbook-nav-container"
+            style={{ transform: `scale(${scale})` }}
+          >
+            <div
+              className="prev-page-button"
+              onClick={() => p.pageFlip.flipPrev()}
+            />
+            <div
+              className={`flipbook-container ${
+                enableDraggable ? "draggable" : ""
+              }`}
+            >
+              <HTMLFlipBook
+                width={400}
+                height={600}
+                ref={(component) => {
+                  p = component;
+                  console.log(p);
+                }}
+                showCover={false}
+                className="flip-book"
+              >
+                <div className="demoPage-left">
+                  <h3>Page 1</h3>
+                  <p>
+                    Nulla congue pulvinar pharetra. Cras sed malesuada arcu.
+                    Duis eleifend nunc laoreet odio dapibus ac convallis sapien
+                    ornare. Nullam a est id diam elementum rhoncus.Ad dicam
+                    diceret pri. Cu animal eligendi eam, nam ea alia oratio
+                    constituam, ad elit dolore possim est. Usu in nostro
+                    delectus, ne definitionem delicatissimi has. Cu sea iriure
+                    vivendum dignissim, choro nonumy philosophia ex mea. In usu
+                    reque liber fabellas, omnes omittam te per, ei novum
+                    percipitur cum. An eum erat facer, persius delectus ei vis.
+                  </p>
+                  <br></br>
+                  <br></br>
+                </div>
+                <div className="demoPage-right">
+                  <div>
+                    {/* <img src="/images/2.jpg" style={{objectFit:"content"}} /> */}
+                    {/* {p.getPageFlip().loadFromImages["images/2.jpg"]} */}
+                  </div>
+                </div>
+                <div className="demoPage-left">
+                  Page 3<p> Third page</p>
+                </div>
+
+                <div className="demoPage-right">
+                  Page 4<p>It is fourth page</p>
+                </div>
+              </HTMLFlipBook>
+            </div>
+            <div
+              className="next-page-button"
+              onClick={() => p.pageFlip.flipNext()}
+            />
+          </div>
+        </span>
+      </Draggable>
+      <div className="footer">
+        <FaSearchPlus
+          className="footer-item"
+          onClick={() => setscale(scale + 0.1)}
+        />
+        <FaSearchMinus
+          className="footer-item"
+          onClick={() => setscale(scale - 0.1)}
+        />
+        <FaCompress
+          className="footer-item"
+          onClick={() => {
+            setdraggablePos({ x: 0, y: 0 });
+            setscale(1);
           }}
-        >
-          <div className="demoPage-left">
-            <h3>Page 1</h3>
-            <p>
-              Nulla congue pulvinar pharetra. Cras sed malesuada arcu. Duis
-              eleifend nunc laoreet odio dapibus ac convallis sapien ornare.
-              Nullam a est id diam elementum rhoncus.Ad dicam diceret pri. Cu
-              animal eligendi eam, nam ea alia oratio constituam, ad elit dolore
-              possim est. Usu in nostro delectus, ne definitionem delicatissimi
-              has. Cu sea iriure vivendum dignissim, choro nonumy philosophia ex
-              mea. In usu reque liber fabellas, omnes omittam te per, ei novum
-              percipitur cum. An eum erat facer, persius delectus ei vis.
-            </p>
-            <br></br>
-            <br></br>
-          </div>
-          <div className="demoPage-right">
-            <div>
-              {/* <img src="/images/2.jpg" style={{objectFit:"content"}} /> */}
-              {/* {p.getPageFlip().loadFromImages["images/2.jpg"]} */}
-            </div>
-          </div>
-          <div className="demoPage-left">
-            Page 3<p> Third page</p>
-          </div>
-
-          <div className="demoPage-right">
-            Page 4<p>It is fourth page</p>
-          </div>
-        </HTMLFlipBook>
-
-        <div id="fb5-footer">
-          <div className="fb5-menu" id="fb5-center">
-            <div className="fb5-download" href="" style={{ padding: 10 }}>
-              <a
-                title="DOWNLOAD (ZIP)"
-                className="fb5-download"
-                href="img/file.pdf"
-              ></a>
-            </div>
-
-            <div>
-              <a
-                title="ZOOM IN"
-                className="fb5-zoom-in"
-                style={{ padding: 10 }}
-              >
-                <FaSearchPlus onClick={() => setscale(scale + 0.1)} />
-              </a>
-            </div>
-
-            <div>
-              <a
-                title="ZOOM OUT "
-                className="fb5-zoom-out"
-                style={{ padding: 10 }}
-              >
-                {" "}
-                <FaSearchMinus onClick={() => setscale(scale - 0.1)} />{" "}
-              </a>
-            </div>
-
-            <div>
-              <a
-                title="FIT TO SCREEN "
-                className="fb5-fit-to-screen"
-                style={{ padding: 10 }}
-              >
-                {" "}
-                <FaCompress onClick={() => setscale(1)} />{" "}
-              </a>
-            </div>
-
-            <div className="pageNumber-input">
-              <input
-                type="number"
-                onChange={(event) => (pageNumber = event.target.value)}
-                style={{ padding: 10 }}
-              ></input>
-            </div>
-
-            <div className="page-change">
-              <button onClick={jumpToPage} style={{ padding: 10 }}>
-                {" "}
-                Go
-              </button>
-            </div>
-
-            <div>
-              <a title="SHOW ALL PAGES " className="fb5-show-all" />
-            </div>
-            <div>
-              <a title="SHOW HOME PAGE " className="fb5-home"></a>
-            </div>
-          </div>
+        />
+        <div className="footer-item page-number-input">
+          <label>PAGE</label>
+          <input
+            type="number"
+            onChange={(event) => (pageNumber = event.target.value)}
+          ></input>
+          <button onClick={jumpToPage}>Go</button>
         </div>
       </div>
     </div>
