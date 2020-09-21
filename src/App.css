@@ -1,17 +1,18 @@
 .App {
   background-image: url("/bg.jpg");
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  flex-direction: column;
 }
 
 .App-logo {
   height: 10vmin;
   pointer-events: none;
 }
-
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -43,86 +44,20 @@
   }
 }
 
-.flipbook-container{
-  width: 1000px;
-  height: 700px;
+.flipbook-container {
+  width: 810px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(150, 108, 17, 0.925);
+  background: #fff;
   color: black;
   padding: 10px;
   flex-direction: column;
   position: relative;
-  /* text-align: let; */
 }
 
-/* #fb5-footer {
-  opacity:0;	
-} */
-
-#fb5-footer {
-  background-color: rgb(70, 66, 66);
-  display: flex;
-  justify-content: center;
- /* position: absolute;  */
- bottom: 0; 
- z-index: 15;
- width: 100%; 
- height: 60px;
- margin: 0; 
- padding: 0;
-
-}
-
-#fb5-center {
-	width: auto;
-	margin-top: 10px;
-	margin-bottom: 0;
-  position:absolute;
-  display: flex;
-  flex-direction: row;
-}
-
-/* #fb5-footer .fb5-bcg-tools {
-   background-color: #000000;
-   height: 100%;
-   left: 0;
-   opacity: 0.55;
-   position: absolute;
-   top: 0;
-   width: 100%;
-} */
-
-.fb5-menu {
-  display: flex;
-  justify-content: center;
-}
-.fb5-menu li a {
-	display: block;
-	/* background: url("/images/logo.svg") no-repeat; */
-  width: 30px; 
-  height: 40px;
-  
-}
-
-.fb5-menu ul {
-  display: flex;
-  flex-direction: row;
-	margin: 0; padding: 0;	
-}
-
-.fb5-menu li {
-	float: left;
-	/* position: relative; */
-	width: 30px;
-	margin: 0 3px;
-	
-	list-style: none;
-    background:none;
-}
-
- .demoPage-left {
+.demoPage-left {
   background-color: rgb(230, 225, 180);
 }
 
@@ -132,37 +67,93 @@
   height: 600px;
   object-fit: contain;
   border-left: black solid;
-} */
+}
 
 
+.footer {
+  bottom: 0;
+  left: 0;
+  background-color: #000000;
+  height: 50px;
+  opacity: 0.55;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.footer svg {
+  fill: #fff;
+  cursor: pointer;
+}
 
+.footer-item {
+  margin: 10px;
+}
 
+.page-number-input {
+  display: flex;
+  align-items: center;
+}
+.page-number-input label {
+  font-family: Arial, sans-serif;
+  margin: 6px 5px 0 0;
+  line-height: 12px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #5f6f7b;
+  -webkit-font-smoothing: antialiased;
+  width: auto;
+}
 
-/* 
- .fb5-menu li a.fb5-download				{ background-position: 0 0; }
- .fb5-menu li a.fb5-download:hover			{ background-position: 0 -90px; }
+.page-number-input input {
+  background: #141f28;
+  width: 40px;
+  height: 20px;
+  border: 1px solid #1e2f3c;
+  box-shadow: inset 0 0 3px #0a1014;
+  text-align: center;
+  font-size: 12px;
+  color: #bababa;
+}
 
-#fb5 .fb5-menu li a.fb5-home					{ background-position: 0 -180px; }
-#fb5 .fb5-menu li a.fb5-home:hover				{ background-position: 0 -270px; }
+.page-number-input button {
+  box-shadow: none;
+  text-shadow: none;
+  font-family: Arial;
+  right: 0px;
+  top: 11px;
+  height: 17px;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 0 1px;
+  background: #a1a5a8;
+}
 
-#fb5 .fb5-menu li a.contact				{ background-position: 0 -360px; }
-#fb5 .fb5-menu li a.contact:hover			{ background-position: 0 -450px; }
+.draggable {
+  cursor: grab;
+}
 
-#fb5 .fb5-menu li a.fb5-fullscreen				{ background-position: 0 -1408px; }
-#fb5 .fb5-menu li a.fb5-fullscreen:hover			{ background-position: 0 -1450px; }
+.dragging div {
+  cursor: grabbing;
+}
 
+.prev-page-button {
+  height: 134px;
+  width: 32px;
+  background: url("./assets//Images/arrow-navpage.png");
+  transform: rotate(180deg);
+  cursor: pointer;
+}
 
-#fb5 .fb5-menu li a.fb5-show-all				{ background-position: 0 -540px; }
-#fb5 .fb5-menu li a.fb5-show-all:hover			{ background-position: 0 -630px; }
+.next-page-button {
+  height: 134px;
+  width: 32px;
+  background: url("./assets/Images/arrow-navpage.png");
+  cursor: pointer;
+}
 
-#fb5 .fb5-menu li a.fb5-zoom-auto				{ background-position: 0 -720px; }
-#fb5 .fb5-menu li a.fb5-zoom-auto:hover		{ background-position: 0 -810px; }
-	
-.fb5-menu li a.fb5-zoom-in				{ background-position: 0 -900px; }
- .fb5-menu li a.fb5-zoom-in:hover			{ background-position: 0 -990px; }
-	
-#fb5 .fb5-menu li a.fb5-zoom-original			{ background-position: 0 -1080px; }
-#fb5 .fb5-menu li a.fb5-zoom-original:hover	{ background-position: 0 -1170px; } */
-.fb5-menu ul li a.fb5-zoom-out				{ background-position: 0 -1260px; }
-.fb5-menu ul li a.fb5-zoom-out:hover			{ background-color: blue; }
+.flipbook-nav-container {
+  display: flex;
+  align-items: center;
+}
