@@ -69,7 +69,6 @@
   border-left: black solid;
 }
 
-
 .footer {
   bottom: 0;
   left: 0;
@@ -156,10 +155,4 @@
 .flipbook-nav-container {
   display: flex;
   align-items: center;
-}
-
-
-.page .page-content .page-image {
-  width: 400px;
-  height: 600px;
 }

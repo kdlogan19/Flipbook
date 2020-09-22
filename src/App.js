@@ -3,15 +3,17 @@ import "./App.css";
 import HTMLFlipBook from "react-pageflip";
 import Draggable from "react-draggable";
 import { FaSearchPlus, FaSearchMinus, FaCompress } from "react-icons/fa";
+import Page from "./components/Page";
+import PageCover from "./components/PageCover";
 
 function App() {
   var p;
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
-  const [zoominHover, setZoominHover] = React.useState(16)
-  const [zoomoutHover, setZoomoutHover] = React.useState(16)
-  const [zoomOriginalHover, setZoomOriginalHover] = React.useState(16)
-  const elements = [1,2,3,4,5,6]
+  const [zoominHover, setZoominHover] = React.useState(16);
+  const [zoomoutHover, setZoomoutHover] = React.useState(16);
+  const [zoomOriginalHover, setZoomOriginalHover] = React.useState(16);
+  const elements = [1, 2, 3, 4, 5, 6];
 
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
@@ -25,31 +27,6 @@ function App() {
       p.pageFlip.turnToPage(parseInt(pageNumber));
     }
   };
- 
-
-  const PageCover = React.forwardRef((props, ref) => {
-    return (
-      <div className="page page-cover" ref={ref} data-density="hard">
-        <div className="page-content">
-          <div className="page-image">
-            <img src={props.image} alt="page" style={{width:"400px", height:"600px"}}/>
-          </div>
-        </div>
-      </div>
-    );
-  });
-
-  const Page = React.forwardRef((props, ref) => {
-    return (
-      <div className="page" ref={ref}>
-        <div className="page-content">
-          <div className="page-image">
-            <img src={props.image} alt="page" style={{width:"400px", height:"600px"}}/>
-          </div>  
-        </div>
-      </div>
-    );
-  });
 
   return (
     <div className="App">
@@ -59,7 +36,7 @@ function App() {
         position={draggablePos}
         defaultPosition={{ x: 0, y: 0 }}
         onStart={() => setdraggablePos(null)}
-       >
+      >
         <span>
           <div
             className="flipbook-nav-container"
@@ -80,14 +57,13 @@ function App() {
                 ref={(component) => {
                   p = component;
                 }}
-                showCover={false}
+                showCover={true}
                 className="flip-book"
               >
-                <PageCover image="/images/page1.jpg">BOOK TITLE</PageCover>
+                <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
                 {elements.map((_, index) => {
-                  return <Page key={index} image="/images/page1.jpg" />
+                  return <Page key={index} image="/images/page1.jpg" />;
                 })}
-    
               </HTMLFlipBook>
             </div>
             <div
@@ -99,24 +75,24 @@ function App() {
       </Draggable>
       <div className="footer">
         <FaSearchPlus
-          className="footer-item" 
-          size = {zoominHover}
+          className="footer-item"
+          size={zoominHover}
           // onMouseEnter={() => setZoominHover(20)}
-          // onMouseLeave={() => setZoominHover(16)} 
+          // onMouseLeave={() => setZoominHover(16)}
           onClick={() => setscale(scale + 0.1)}
         />
         <FaSearchMinus
           className="footer-item"
-          size = {zoomoutHover}
+          size={zoomoutHover}
           // onMouseEnter={() => setZoomoutHover(20)}
-          // onMouseLeave={() => setZoomoutHover(16)} 
+          // onMouseLeave={() => setZoomoutHover(16)}
           onClick={() => setscale(scale - 0.1)}
         />
         <FaCompress
           className="footer-item"
-          size = {zoomOriginalHover}
+          size={zoomOriginalHover}
           // onMouseEnter={() => setZoomOriginalHover(20)}
-          // onMouseLeave={() => setZoomOriginalHover(16)} 
+          // onMouseLeave={() => setZoomOriginalHover(16)}
           onClick={() => {
             setdraggablePos({ x: 0, y: 0 });
             setscale(1);
