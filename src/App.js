@@ -11,6 +11,7 @@ function App() {
   const [zoominHover, setZoominHover] = React.useState(16)
   const [zoomoutHover, setZoomoutHover] = React.useState(16)
   const [zoomOriginalHover, setZoomOriginalHover] = React.useState(16)
+  const elements = [1,2,3,4,5,6]
 
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
@@ -24,10 +25,31 @@ function App() {
       p.pageFlip.turnToPage(parseInt(pageNumber));
     }
   };
+ 
 
-  const toggleHover = () => {
-    setZoominHover(true);
-  }
+  const PageCover = React.forwardRef((props, ref) => {
+    return (
+      <div className="page page-cover" ref={ref} data-density="hard">
+        <div className="page-content">
+          <div className="page-image">
+            <img src={props.image} alt="page" style={{width:"400px", height:"600px"}}/>
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+  const Page = React.forwardRef((props, ref) => {
+    return (
+      <div className="page" ref={ref}>
+        <div className="page-content">
+          <div className="page-image">
+            <img src={props.image} alt="page" style={{width:"400px", height:"600px"}}/>
+          </div>  
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div className="App">
@@ -37,7 +59,7 @@ function App() {
         position={draggablePos}
         defaultPosition={{ x: 0, y: 0 }}
         onStart={() => setdraggablePos(null)}
-      >
+       >
         <span>
           <div
             className="flipbook-nav-container"
@@ -57,40 +79,15 @@ function App() {
                 height={600}
                 ref={(component) => {
                   p = component;
-                  console.log(p);
                 }}
                 showCover={false}
                 className="flip-book"
               >
-                <div className="demoPage-left">
-                  <h3>Page 1</h3>
-                  <p>
-                    Nulla congue pulvinar pharetra. Cras sed malesuada arcu.
-                    Duis eleifend nunc laoreet odio dapibus ac convallis sapien
-                    ornare. Nullam a est id diam elementum rhoncus.Ad dicam
-                    diceret pri. Cu animal eligendi eam, nam ea alia oratio
-                    constituam, ad elit dolore possim est. Usu in nostro
-                    delectus, ne definitionem delicatissimi has. Cu sea iriure
-                    vivendum dignissim, choro nonumy philosophia ex mea. In usu
-                    reque liber fabellas, omnes omittam te per, ei novum
-                    percipitur cum. An eum erat facer, persius delectus ei vis.
-                  </p>
-                  <br></br>
-                  <br></br>
-                </div>
-                <div className="demoPage-right">
-                  <div>
-                    {/* <img src="/images/2.jpg" style={{objectFit:"content"}} /> */}
-                    {/* {p.getPageFlip().loadFromImages["images/2.jpg"]} */}
-                  </div>
-                </div>
-                <div className="demoPage-left">
-                  Page 3<p> Third page</p>
-                </div>
-
-                <div className="demoPage-right">
-                  Page 4<p>It is fourth page</p>
-                </div>
+                <PageCover image="/images/page1.jpg">BOOK TITLE</PageCover>
+                {elements.map((_, index) => {
+                  return <Page key={index} image="/images/page1.jpg" />
+                })}
+    
               </HTMLFlipBook>
             </div>
             <div
@@ -104,22 +101,22 @@ function App() {
         <FaSearchPlus
           className="footer-item" 
           size = {zoominHover}
-          onMouseEnter={() => setZoominHover(20)}
-          onMouseLeave={() => setZoominHover(16)} 
+          // onMouseEnter={() => setZoominHover(20)}
+          // onMouseLeave={() => setZoominHover(16)} 
           onClick={() => setscale(scale + 0.1)}
         />
         <FaSearchMinus
           className="footer-item"
           size = {zoomoutHover}
-          onMouseEnter={() => setZoomoutHover(20)}
-          onMouseLeave={() => setZoomoutHover(16)} 
+          // onMouseEnter={() => setZoomoutHover(20)}
+          // onMouseLeave={() => setZoomoutHover(16)} 
           onClick={() => setscale(scale - 0.1)}
         />
         <FaCompress
           className="footer-item"
           size = {zoomOriginalHover}
-          onMouseEnter={() => setZoomOriginalHover(20)}
-          onMouseLeave={() => setZoomOriginalHover(16)} 
+          // onMouseEnter={() => setZoomOriginalHover(20)}
+          // onMouseLeave={() => setZoomOriginalHover(16)} 
           onClick={() => {
             setdraggablePos({ x: 0, y: 0 });
             setscale(1);
