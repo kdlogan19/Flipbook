@@ -156,3 +156,7 @@
   display: flex;
   align-items: center;
 }
+
+.footer svg:hover {
+  transform: scale(1.2);
+}

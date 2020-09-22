@@ -10,9 +10,6 @@ function App() {
   var p;
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
-  const [zoominHover, setZoominHover] = React.useState(16);
-  const [zoomoutHover, setZoomoutHover] = React.useState(16);
-  const [zoomOriginalHover, setZoomOriginalHover] = React.useState(16);
   const elements = [1, 2, 3, 4, 5, 6];
 
   // Default position of the flipbook.
@@ -76,23 +73,14 @@ function App() {
       <div className="footer">
         <FaSearchPlus
           className="footer-item"
-          size={zoominHover}
-          // onMouseEnter={() => setZoominHover(20)}
-          // onMouseLeave={() => setZoominHover(16)}
           onClick={() => setscale(scale + 0.1)}
         />
         <FaSearchMinus
           className="footer-item"
-          size={zoomoutHover}
-          // onMouseEnter={() => setZoomoutHover(20)}
-          // onMouseLeave={() => setZoomoutHover(16)}
           onClick={() => setscale(scale - 0.1)}
         />
         <FaCompress
           className="footer-item"
-          size={zoomOriginalHover}
-          // onMouseEnter={() => setZoomOriginalHover(20)}
-          // onMouseLeave={() => setZoomOriginalHover(16)}
           onClick={() => {
             setdraggablePos({ x: 0, y: 0 });
             setscale(1);
