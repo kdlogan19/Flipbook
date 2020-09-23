@@ -45,8 +45,8 @@
 }
 
 .flipbook-container {
-  width: 810px;
-  height: 600px;
+  width: 60vw;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@
   position: relative;
 }
 
-.demoPage-left {
+/* .demoPage-left {
   background-color: rgb(230, 225, 180);
 }
 
@@ -67,7 +67,7 @@
   height: 600px;
   object-fit: contain;
   border-left: black solid;
-}
+} */
 
 .footer {
   bottom: 0;
@@ -96,9 +96,9 @@
 }
 .page-number-input label {
   font-family: Arial, sans-serif;
-  margin: 6px 5px 0 0;
+  margin: 0 6px 0 6px;
   line-height: 12px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   color: #5f6f7b;
   -webkit-font-smoothing: antialiased;
@@ -154,5 +154,6 @@
 
 .flipbook-nav-container {
   display: flex;
+  object-fit: contain;
   align-items: center;
 }

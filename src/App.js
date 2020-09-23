@@ -5,6 +5,7 @@ import Draggable from "react-draggable";
 import { FaSearchPlus, FaSearchMinus, FaCompress } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
+import useWindowDimensions from './utils/getWindowDimension'
 
 function App() {
   var p;
@@ -13,6 +14,8 @@ function App() {
   const [zoominHover, setZoominHover] = React.useState(16);
   const [zoomoutHover, setZoomoutHover] = React.useState(16);
   const [zoomOriginalHover, setZoomOriginalHover] = React.useState(16);
+  const { height, width } = useWindowDimensions();
+  // console.log(height, width)
   const elements = [1, 2, 3, 4, 5, 6];
 
   // Default position of the flipbook.
@@ -22,7 +25,7 @@ function App() {
   let enableDraggable = scale > 1;
 
   const jumpToPage = () => {
-    console.log("hi", pageNumber, typeof pageNumber);
+    // console.log("hi", pageNumber, typeof pageNumber);
     if (p) {
       p.pageFlip.turnToPage(parseInt(pageNumber));
     }
@@ -52,8 +55,8 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={400}
-                height={600}
+                width={Math.floor(width*0.3)}
+                height={Math.floor(height*3/4)}
                 ref={(component) => {
                   p = component;
                 }}
@@ -77,22 +80,22 @@ function App() {
         <FaSearchPlus
           className="footer-item"
           size={zoominHover}
-          // onMouseEnter={() => setZoominHover(20)}
-          // onMouseLeave={() => setZoominHover(16)}
+          onMouseEnter={() => setZoominHover(20)}
+          onMouseLeave={() => setZoominHover(16)}
           onClick={() => setscale(scale + 0.1)}
         />
         <FaSearchMinus
           className="footer-item"
           size={zoomoutHover}
-          // onMouseEnter={() => setZoomoutHover(20)}
-          // onMouseLeave={() => setZoomoutHover(16)}
+          onMouseEnter={() => setZoomoutHover(20)}
+          onMouseLeave={() => setZoomoutHover(16)}
           onClick={() => setscale(scale - 0.1)}
         />
         <FaCompress
           className="footer-item"
           size={zoomOriginalHover}
-          // onMouseEnter={() => setZoomOriginalHover(20)}
-          // onMouseLeave={() => setZoomOriginalHover(16)}
+          onMouseEnter={() => setZoomOriginalHover(20)}
+          onMouseLeave={() => setZoomOriginalHover(16)}
           onClick={() => {
             setdraggablePos({ x: 0, y: 0 });
             setscale(1);
@@ -104,7 +107,9 @@ function App() {
             type="number"
             onChange={(event) => (pageNumber = event.target.value)}
           ></input>
+          <label>/{elements.length}</label>
           <button onClick={jumpToPage}>Go</button>
+          
         </div>
       </div>
     </div>
