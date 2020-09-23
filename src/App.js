@@ -5,18 +5,15 @@ import Draggable from "react-draggable";
 import { FaSearchPlus, FaSearchMinus, FaCompress } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
-import useWindowDimensions from './utils/getWindowDimension'
+
 
 function App() {
   var p;
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
-  const [zoominHover, setZoominHover] = React.useState(16);
-  const [zoomoutHover, setZoomoutHover] = React.useState(16);
-  const [zoomOriginalHover, setZoomOriginalHover] = React.useState(16);
-  const { height, width } = useWindowDimensions();
-  // console.log(height, width)
   const elements = [1, 2, 3, 4, 5, 6];
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
@@ -56,7 +53,7 @@ function App() {
             >
               <HTMLFlipBook
                 width={Math.floor(width*0.3)}
-                height={Math.floor(height*3/4)}
+                height={Math.floor(height*0.8)}
                 ref={(component) => {
                   p = component;
                 }}
@@ -79,23 +76,14 @@ function App() {
       <div className="footer">
         <FaSearchPlus
           className="footer-item"
-          size={zoominHover}
-          onMouseEnter={() => setZoominHover(20)}
-          onMouseLeave={() => setZoominHover(16)}
           onClick={() => setscale(scale + 0.1)}
         />
         <FaSearchMinus
           className="footer-item"
-          size={zoomoutHover}
-          onMouseEnter={() => setZoomoutHover(20)}
-          onMouseLeave={() => setZoomoutHover(16)}
           onClick={() => setscale(scale - 0.1)}
         />
         <FaCompress
           className="footer-item"
-          size={zoomOriginalHover}
-          onMouseEnter={() => setZoomOriginalHover(20)}
-          onMouseLeave={() => setZoomOriginalHover(16)}
           onClick={() => {
             setdraggablePos({ x: 0, y: 0 });
             setscale(1);
