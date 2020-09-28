@@ -2,16 +2,18 @@ import React from "react";
 import "./App.css";
 import HTMLFlipBook from "react-pageflip";
 import Draggable from "react-draggable";
-import { FaSearchPlus, FaSearchMinus, FaCompress } from "react-icons/fa";
+import { FaSearchPlus, FaSearchMinus, FaCompress, FaFilePdf, FaImages } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
+import LazyLoad from 'react-lazyload'
 
 
 function App() {
   var p;
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
-  const elements = [1, 2, 3, 4, 5, 6];
+  
+  var elements = [...Array(1000).keys()];
   const height = window.innerHeight;
   const width = window.innerWidth;
 
@@ -27,9 +29,10 @@ function App() {
       p.pageFlip.turnToPage(parseInt(pageNumber));
     }
   };
-
+  
   return (
     <div className="App">
+      <LazyLoad>
       <Draggable
         disabled={!enableDraggable}
         defaultClassNameDragging="dragging"
@@ -52,7 +55,7 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={Math.floor(width*0.3)}
+                width={Math.floor(width*0.29)}
                 height={Math.floor(height*0.8)}
                 ref={(component) => {
                   p = component;
@@ -62,7 +65,7 @@ function App() {
               >
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
                 {elements.map((_, index) => {
-                  return <Page key={index} image="/images/page1.jpg" />;
+                  return <Page key={index} image="/images/page1.jpg" pageNumber={index}/>;
                 })}
               </HTMLFlipBook>
             </div>
@@ -73,6 +76,7 @@ function App() {
           </div>
         </span>
       </Draggable>
+      </LazyLoad>
       <div className="footer">
         <FaSearchPlus
           className="footer-item"
@@ -89,6 +93,15 @@ function App() {
             setscale(1);
           }}
         />
+        <a href="/who.pdf" target="_blank"> 
+          <FaFilePdf
+            className="footer-item"
+          />
+        </a>
+        <FaImages
+          className="footer-item"
+          onClick={()=>{}}
+        />
         <div className="footer-item page-number-input">
           <label>PAGE</label>
           <input
@@ -97,8 +110,8 @@ function App() {
           ></input>
           <label>/{elements.length}</label>
           <button onClick={jumpToPage}>Go</button>
-          
         </div>
+        
       </div>
     </div>
   );

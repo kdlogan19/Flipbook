@@ -50,11 +50,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: rgba(47, 95, 104, 0.445);
   color: black;
   padding: 10px;
   flex-direction: column;
-  position: relative;
+  
 }
 
 /* .demoPage-left {
