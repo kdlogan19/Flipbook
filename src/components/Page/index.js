@@ -6,8 +6,7 @@ const Page = React.forwardRef((props, ref) => {
   return (
     <div className="page" ref={ref}>
       <div className="page-content">
-        <div className="page-image">
-          
+        <div className="page-image">  
           <LazyLoad>
             <img
               src={props.image}

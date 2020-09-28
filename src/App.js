@@ -16,7 +16,7 @@ function App() {
   var elements = [...Array(1000).keys()];
   const height = window.innerHeight;
   const width = window.innerWidth;
-
+  
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
 
@@ -29,6 +29,10 @@ function App() {
       p.pageFlip.turnToPage(parseInt(pageNumber));
     }
   };
+
+  const showThumbnails = () => {
+
+  }
   
   return (
     <div className="App">
@@ -55,13 +59,14 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={Math.floor(width*0.29)}
+                width={Math.floor(width*0.3)}
                 height={Math.floor(height*0.8)}
                 ref={(component) => {
                   p = component;
                 }}
                 showCover={true}
                 className="flip-book"
+                flippingTime={750}
               >
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
                 {elements.map((_, index) => {
@@ -100,7 +105,7 @@ function App() {
         </a>
         <FaImages
           className="footer-item"
-          onClick={()=>{}}
+          onClick={showThumbnails}
         />
         <div className="footer-item page-number-input">
           <label>PAGE</label>
