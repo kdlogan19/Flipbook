@@ -1,4 +1,5 @@
-.page .page-content{
-  width: auto;
-  height: auto;
+.page .page-content .page-image img{
+  max-width: 100%;
+  max-height: 100%;
+  padding: 5px;
 }
