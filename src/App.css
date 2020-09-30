@@ -54,9 +54,14 @@
   color: black;
   padding: 10px;
   flex-direction: column;
+  object-fit: contain;
   
 }
 
+/* .flip-book .stf__block {
+  display: flex;
+  align-items: center;
+} */
 /* .demoPage-left {
   background-color: rgb(230, 225, 180);
 }
