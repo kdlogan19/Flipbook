@@ -46,15 +46,13 @@
 
 .flipbook-container {
   width: 60vw;
-  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: rgba(47, 95, 104, 0.445);
   color: black;
-  padding: 10px;
+  padding: 5px;
   flex-direction: column;
-  
 }
 
 /* .demoPage-left {
