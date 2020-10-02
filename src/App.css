@@ -9,40 +9,6 @@
   flex-direction: column;
 }
 
-.App-logo {
-  height: 10vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .flipbook-container {
   width: 60vw;
@@ -54,20 +20,9 @@
   color: black;
   padding: 10px;
   flex-direction: column;
-  
+  object-fit: contain;  
 }
 
-/* .demoPage-left {
-  background-color: rgb(230, 225, 180);
-}
-
-.demoPage-right {
-  background-color: rgb(230, 225, 180);
-  width: 400px;
-  height: 600px;
-  object-fit: contain;
-  border-left: black solid;
-} */
 
 .footer {
   bottom: 0;
@@ -137,24 +92,8 @@
   cursor: grabbing;
 }
 
-.prev-page-button {
-  height: 134px;
-  width: 32px;
-  background: url("./assets//Images/arrow-navpage.png");
-  transform: rotate(180deg);
-  cursor: pointer;
-}
-
-.next-page-button {
-  height: 134px;
-  width: 32px;
-  background: url("./assets/Images/arrow-navpage.png");
-  cursor: pointer;
-}
-
 .flipbook-nav-container {
   display: flex;
-  object-fit: contain;
   align-items: center;
 }
 

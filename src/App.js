@@ -2,18 +2,17 @@ import React from "react";
 import "./App.css";
 import HTMLFlipBook from "react-pageflip";
 import Draggable from "react-draggable";
-import { FaSearchPlus, FaSearchMinus, FaCompress, FaFilePdf, FaImages } from "react-icons/fa";
+import { FaSearchPlus, FaSearchMinus, FaCompress, FaFilePdf, FaImages, FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
-import LazyLoad from 'react-lazyload'
 
 
 function App() {
-  var p;
+  var bookRef;
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
   
-  var elements = [...Array(1000).keys()];
+  var elements = [...Array(10).keys()];
   const height = window.innerHeight;
   const width = window.innerWidth;
   
@@ -24,9 +23,8 @@ function App() {
   let enableDraggable = scale > 1;
 
   const jumpToPage = () => {
-    // console.log("hi", pageNumber, typeof pageNumber);
-    if (p) {
-      p.pageFlip.turnToPage(parseInt(pageNumber));
+    if (bookRef) {
+      bookRef.pageFlip.turnToPage(parseInt(pageNumber));
     }
   };
 
@@ -35,8 +33,8 @@ function App() {
   }
   
   return (
+    
     <div className="App">
-      <LazyLoad>
       <Draggable
         disabled={!enableDraggable}
         defaultClassNameDragging="dragging"
@@ -49,9 +47,9 @@ function App() {
             className="flipbook-nav-container"
             style={{ transform: `scale(${scale})` }}
           >
-            <div
+            <FaChevronCircleLeft   size="7vh"
               className="prev-page-button"
-              onClick={() => p.pageFlip.flipPrev()}
+              onClick={() => bookRef.pageFlip.flipPrev()}
             />
             <div
               className={`flipbook-container ${
@@ -62,35 +60,47 @@ function App() {
                 width={Math.floor(width*0.3)}
                 height={Math.floor(height*0.8)}
                 ref={(component) => {
-                  p = component;
+                  bookRef = component;
                 }}
                 showCover={true}
                 className="flip-book"
                 flippingTime={750}
+                size="stretch"
+                minHeight={500}
+                minWidth={200}
               >
+                {/* Book Cover */}
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
+
+                {/* Rest of the pages */}
                 {elements.map((_, index) => {
                   return <Page key={index} image="/images/page1.jpg" pageNumber={index}/>;
                 })}
               </HTMLFlipBook>
             </div>
-            <div
+
+            <FaChevronCircleRight size="7vh"
               className="next-page-button"
-              onClick={() => p.pageFlip.flipNext()}
+              onClick={() => bookRef.pageFlip.flipNext()}
             />
           </div>
         </span>
       </Draggable>
-      </LazyLoad>
+
       <div className="footer">
+         {/* Zoom-in */}
         <FaSearchPlus
           className="footer-item"
           onClick={() => setscale(scale + 0.1)}
         />
+
+         {/* Zoom out */}
         <FaSearchMinus
           className="footer-item"
           onClick={() => setscale(scale - 0.1)}
         />
+
+        {/* Original Size */}
         <FaCompress
           className="footer-item"
           onClick={() => {
@@ -98,15 +108,21 @@ function App() {
             setscale(1);
           }}
         />
+
+        {/* Pdf of the Book */}
         <a href="/who.pdf" target="_blank"> 
           <FaFilePdf
             className="footer-item"
           />
         </a>
+
+         {/* Show thumbnails */}
         <FaImages
           className="footer-item"
           onClick={showThumbnails}
         />
+
+         {/* Book Navigation by page numbers */}
         <div className="footer-item page-number-input">
           <label>PAGE</label>
           <input
