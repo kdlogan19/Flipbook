@@ -1,6 +1,5 @@
 import React from "react";
 import "./Page.css";
-import LazyLoad from 'react-lazyload'
 
 const Page = React.forwardRef((props, ref) => {
   return (
