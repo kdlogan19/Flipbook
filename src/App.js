@@ -11,7 +11,6 @@ import {
 } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
-import LazyLoad from "react-lazyload";
 
 function App() {
   var p;
@@ -19,8 +18,6 @@ function App() {
   const [scale, setscale] = React.useState(1);
 
   var elements = [...Array(1000).keys()];
-  const height = window.innerHeight;
-  const width = window.innerWidth;
 
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
@@ -61,7 +58,7 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={Math.floor(width * 0.3)}
+                width={460}
                 height={623}
                 minHeight={50}
                 minWidth={100}
