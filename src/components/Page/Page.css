@@ -1,4 +1,4 @@
-.page {
+/* .page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,19 +7,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.page .page-content .page-image {
-  max-width: 60vw;
-  max-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.page .page-content .page-image > img{
+  max-width: 100%;
+  max-height: 100%;
 }
+/*
 .page .page-content .page-image img{
   max-width: 100%;
   max-height: 100%;
   /* width: 60vw;
-  height: 80vh; */
+  height: 80vh; 
   padding: 5px;
-}
+} */

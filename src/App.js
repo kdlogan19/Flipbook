@@ -13,7 +13,7 @@ function App() {
   var pageNumber = 0;
   const [scale, setscale] = React.useState(1);
   
-  var elements = [...Array(1000).keys()];
+  var elements = [...Array(10).keys()];
   const height = window.innerHeight;
   const width = window.innerWidth;
   
@@ -68,6 +68,9 @@ function App() {
                 showCover={true}
                 className="flip-book"
                 flippingTime={750}
+                size="stretch"
+                minHeight={500}
+                minWidth={250}
               >
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
                 {elements.map((_, index) => {

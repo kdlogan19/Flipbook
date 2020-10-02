@@ -4,7 +4,7 @@ import LazyLoad from 'react-lazyload'
 
 const Page = React.forwardRef((props, ref) => {
   return (
-    <div className="page" ref={ref}>
+    <div className="page" ref={ref} style={{marginTop:"100px"}}>
       <div className="page-content">
         <div className="page-image">  
             <img

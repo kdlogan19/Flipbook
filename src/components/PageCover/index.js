@@ -8,7 +8,7 @@ const PageCover = React.forwardRef((props, ref) => {
           <img
             src={props.image}
             alt="page"
-            style={{ width: "400px", height: "600px" }}
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
           />
         </div>
       </div>

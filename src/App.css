@@ -55,7 +55,14 @@
   padding: 10px;
   flex-direction: column;
   object-fit: contain;
+  min-width: 300px;
+  min-height: 550px;
   
+}
+
+.flip-book {
+  min-width: 300px;
+  min-height: 550px;
 }
 
 /* .flip-book .stf__block {
@@ -79,6 +86,7 @@
   left: 0;
   background-color: #000000;
   height: 50px;
+  margin-bottom: 50px;
   opacity: 0.55;
   width: 100%;
   display: flex;
@@ -143,16 +151,16 @@
 }
 
 .prev-page-button {
-  height: 134px;
-  width: 32px;
+  height: 20vh;
+  width: 2vw;
   background: url("./assets//Images/arrow-navpage.png");
   transform: rotate(180deg);
   cursor: pointer;
 }
 
 .next-page-button {
-  height: 134px;
-  width: 32px;
+  height: 20vh;
+  width: 2vw;
   background: url("./assets/Images/arrow-navpage.png");
   cursor: pointer;
 }
