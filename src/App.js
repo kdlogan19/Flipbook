@@ -5,14 +5,20 @@ import Draggable from "react-draggable";
 import { FaSearchPlus, FaSearchMinus, FaCompress, FaFilePdf, FaImages, FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
+import Thumbnails from './components/Thumbnails'
 
 
 function App() {
-  var bookRef;
+  var bookRef = React.useRef();
   var pageNumber = 0;
-  const [scale, setscale] = React.useState(1);
-  
-  var elements = [...Array(10).keys()];
+  let [scale, setscale] = React.useState(1);
+  let [thumbnails, setThumbnails] = React.useState(false);
+  var numberOfThumbnails = 3; //Keep number of thumbnails odd for the symmetry purpose
+
+  //List of images
+  var elements = ["https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/",
+                  "https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/"];
+
   const height = window.innerHeight;
   const width = window.innerWidth;
   
@@ -22,14 +28,25 @@ function App() {
   // Making flipbook draggable upon zooming.
   let enableDraggable = scale > 1;
 
-  const jumpToPage = () => {
-    if (bookRef) {
-      bookRef.pageFlip.turnToPage(parseInt(pageNumber));
+  const jumpToPage = (pageNum) => {
+    if (bookRef) { 
+      bookRef.current.pageFlip.flip(parseInt(pageNum));
     }
   };
 
   const showThumbnails = () => {
-
+    let currentIndex = 0;
+    if(bookRef){
+      currentIndex = bookRef.current.pageFlip.getCurrentPageIndex();
+    }
+   
+    let l,r;
+    l = Math.max(0,currentIndex - (numberOfThumbnails-1)/2);
+    r = Math.min(currentIndex + (numberOfThumbnails+1)/2, elements.length);
+    const slicedThumbnails = elements.slice(l,r)
+    // console.log(slicedThumbnails, l, r)
+    return <Thumbnails pages={slicedThumbnails} currentIndex={currentIndex} 
+              turnToPage={jumpToPage} numberOfThumbnails={numberOfThumbnails}/>
   }
   
   return (
@@ -49,7 +66,7 @@ function App() {
           >
             <FaChevronCircleLeft   size="7vh"
               className="prev-page-button"
-              onClick={() => bookRef.pageFlip.flipPrev()}
+              onClick={() => bookRef.current.pageFlip.flipPrev()}
             />
             <div
               className={`flipbook-container ${
@@ -59,9 +76,7 @@ function App() {
               <HTMLFlipBook
                 width={Math.floor(width*0.3)}
                 height={Math.floor(height*0.8)}
-                ref={(component) => {
-                  bookRef = component;
-                }}
+                ref={bookRef}
                 showCover={true}
                 className="flip-book"
                 flippingTime={750}
@@ -78,14 +93,20 @@ function App() {
                 })}
               </HTMLFlipBook>
             </div>
-
+            
             <FaChevronCircleRight size="7vh"
               className="next-page-button"
-              onClick={() => bookRef.pageFlip.flipNext()}
+              onClick={() => {
+                console.log(bookRef)
+                bookRef.current.pageFlip.flipNext()
+              } }
             />
           </div>
         </span>
+        
       </Draggable>
+      
+      {thumbnails && showThumbnails(bookRef)}
 
       <div className="footer">
          {/* Zoom-in */}
@@ -119,7 +140,7 @@ function App() {
          {/* Show thumbnails */}
         <FaImages
           className="footer-item"
-          onClick={showThumbnails}
+          onClick={() => setThumbnails(!thumbnails)}
         />
 
          {/* Book Navigation by page numbers */}
@@ -130,7 +151,7 @@ function App() {
             onChange={(event) => (pageNumber = event.target.value)}
           ></input>
           <label>/{elements.length}</label>
-          <button onClick={jumpToPage}>Go</button>
+          <button onClick={() => jumpToPage(pageNumber)}>Go</button>
         </div>
         
       </div>

@@ -1,0 +1,15 @@
+.thumbnail-container {
+    display: flex;
+    height: 10vh;
+    background-color: rgba(47, 95, 104, 0.445);
+    width: 60vw;
+    justify-content: center;
+    
+}
+
+.thumbnail-container > img {
+    max-height: 100%;
+    max-width: 100%;
+    margin: 10px;
+    opacity: 1;
+}
