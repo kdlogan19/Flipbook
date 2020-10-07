@@ -13,7 +13,7 @@ function App() {
   var pageNumber = 0;
   let [scale, setscale] = React.useState(1);
   let [thumbnails, setThumbnails] = React.useState(false);
-  var numberOfThumbnails = 3; //Keep number of thumbnails odd for the symmetry purpose
+  var numberOfThumbnails = 4; //Keep number of thumbnails even for the symmetry purpose
 
   //List of images
   var elements = ["https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/",
@@ -40,11 +40,12 @@ function App() {
       currentIndex = bookRef.current.pageFlip.getCurrentPageIndex();
     }
    
-    let l,r;
-    l = Math.max(0,currentIndex - (numberOfThumbnails-1)/2);
-    r = Math.min(currentIndex + (numberOfThumbnails+1)/2, elements.length);
-    const slicedThumbnails = elements.slice(l,r)
-    // console.log(slicedThumbnails, l, r)
+    let left,right;
+    //Slicing a window of length "numberOfThumbnails" to display
+    left = Math.max(0,currentIndex - Math.floor((numberOfThumbnails-2)/2));
+    right = Math.min(currentIndex + 1 + Math.floor((numberOfThumbnails-2)/2), elements.length-1);
+    const slicedThumbnails = elements.slice(left,right+1)
+ 
     return <Thumbnails pages={slicedThumbnails} currentIndex={currentIndex} 
               turnToPage={jumpToPage} numberOfThumbnails={numberOfThumbnails}/>
   }
@@ -97,7 +98,6 @@ function App() {
             <FaChevronCircleRight size="7vh"
               className="next-page-button"
               onClick={() => {
-                console.log(bookRef)
                 bookRef.current.pageFlip.flipNext()
               } }
             />
