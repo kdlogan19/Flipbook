@@ -5,14 +5,16 @@ import Draggable from "react-draggable";
 import { FaSearchPlus, FaSearchMinus, FaCompress, FaFilePdf, FaImages, FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
-import Thumbnails from './components/Thumbnails'
+import Thumbnails from './components/Thumbnails';
+import Overlay from './components/Overlay'
 
 
 function App() {
   var bookRef = React.useRef();
   var pageNumber = 0;
   let [scale, setscale] = React.useState(1);
-  let [thumbnails, setThumbnails] = React.useState(false);
+  let [showThumbnails, setShowThumbnails] = React.useState(false);
+  let [overlayActive, setOverlayActive] = React.useState(false);
   var numberOfThumbnails = 4; //Keep number of thumbnails even for the symmetry purpose
 
   //List of images
@@ -34,20 +36,29 @@ function App() {
     }
   };
 
-  const showThumbnails = () => {
+  const showThumbnailsFunc = () => {
     let currentIndex = 0;
     if(bookRef){
       currentIndex = bookRef.current.pageFlip.getCurrentPageIndex();
     }
-   
+    // setOverlayActive(true);
     let left,right;
     //Slicing a window of length "numberOfThumbnails" to display
     left = Math.max(0,currentIndex - Math.floor((numberOfThumbnails-2)/2));
     right = Math.min(currentIndex + 1 + Math.floor((numberOfThumbnails-2)/2), elements.length-1);
     const slicedThumbnails = elements.slice(left,right+1)
- 
-    return <Thumbnails pages={slicedThumbnails} currentIndex={currentIndex} 
-              turnToPage={jumpToPage} numberOfThumbnails={numberOfThumbnails}/>
+    
+    return (<>
+      <Thumbnails pages={slicedThumbnails} currentIndex={currentIndex} 
+              turnToPage={jumpToPage} numberOfThumbnails={numberOfThumbnails} 
+              showThumbnails = {showThumbnails}
+              setShowThumbnails= {setShowThumbnails}
+            />
+            <Overlay setProperty={setShowThumbnails} property={showThumbnails} 
+            overlayActive={overlayActive}
+            setOverlayActive ={setOverlayActive}
+            />
+            </>)
   }
   
   return (
@@ -106,8 +117,8 @@ function App() {
         
       </Draggable>
       
-      {thumbnails && showThumbnails(bookRef)}
-
+      {showThumbnails && showThumbnailsFunc()}
+    
       <div className="footer">
          {/* Zoom-in */}
         <FaSearchPlus
@@ -140,7 +151,7 @@ function App() {
          {/* Show thumbnails */}
         <FaImages
           className="footer-item"
-          onClick={() => setThumbnails(!thumbnails)}
+          onClick={() => setShowThumbnails(!showThumbnails)}
         />
 
          {/* Book Navigation by page numbers */}
