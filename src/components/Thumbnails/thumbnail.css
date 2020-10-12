@@ -1,11 +1,13 @@
 .thumbnail-container {
-    display: flex;
-    height: 15vh;
+    display: inline-flex;
+    height: 30vh;
     position: fixed;
     background-color: rgba(47, 95, 104, 0.445);
-    width: 60vw;
+    width: 70vw;
     justify-content: center;
     z-index: 20;
+    flex-flow: nowrap;
+    overflow-x: scroll;
     
 }
 .thumbnail-container > img {

@@ -15,14 +15,7 @@ function App() {
   let [scale, setscale] = React.useState(1);
   let [showThumbnails, setShowThumbnails] = React.useState(false);
   let [overlayActive, setOverlayActive] = React.useState(false);
-  var numberOfThumbnails = 4; //Keep number of thumbnails even for the symmetry purpose
-
-  //List of images
-  var elements = ["https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/",
-                  "https://picsum.photos/200/","https://picsum.photos/200/","https://picsum.photos/200/"];
-
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  var numberOfPages = 12; //Input length of book
   
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
@@ -37,27 +30,16 @@ function App() {
   };
 
   const showThumbnailsFunc = () => {
-    let currentIndex = 0;
-    if(bookRef){
-      currentIndex = bookRef.current.pageFlip.getCurrentPageIndex();
-    }
-    // setOverlayActive(true);
-    let left,right;
-    //Slicing a window of length "numberOfThumbnails" to display
-    left = Math.max(0,currentIndex - Math.floor((numberOfThumbnails-2)/2));
-    right = Math.min(currentIndex + 1 + Math.floor((numberOfThumbnails-2)/2), elements.length-1);
-    const slicedThumbnails = elements.slice(left,right+1)
-    
     return (<>
-      <Thumbnails pages={slicedThumbnails} currentIndex={currentIndex} 
-              turnToPage={jumpToPage} numberOfThumbnails={numberOfThumbnails} 
-              showThumbnails = {showThumbnails}
-              setShowThumbnails= {setShowThumbnails}
-            />
-            <Overlay setProperty={setShowThumbnails} property={showThumbnails} 
-            overlayActive={overlayActive}
-            setOverlayActive ={setOverlayActive}
-            />
+              <Thumbnails
+                turnToPage={jumpToPage} numberOfThumbnails={numberOfPages} 
+                showThumbnails = {showThumbnails}
+                setShowThumbnails= {setShowThumbnails}
+              />
+              <Overlay setProperty={setShowThumbnails} property={showThumbnails} 
+                overlayActive={overlayActive}
+                setOverlayActive ={setOverlayActive}
+              />
             </>)
   }
   
@@ -86,8 +68,8 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={Math.floor(width*0.3)}
-                height={Math.floor(height*0.8)}
+                width={Math.floor(700)}
+                height={900}
                 ref={bookRef}
                 showCover={true}
                 className="flip-book"
@@ -98,10 +80,10 @@ function App() {
               >
                 {/* Book Cover */}
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
-
                 {/* Rest of the pages */}
-                {elements.map((_, index) => {
-                  return <Page key={index} image="/images/page1.jpg" pageNumber={index}/>;
+                {[...Array(numberOfPages)].map((_, index) => {
+                  let path = "/images/" + (index+1) + ".jpg" 
+                  return <Page key={index} image={path} pageNumber={index}/>;
                 })}
               </HTMLFlipBook>
             </div>
@@ -161,7 +143,7 @@ function App() {
             type="number"
             onChange={(event) => (pageNumber = event.target.value)}
           ></input>
-          <label>/{elements.length}</label>
+          <label>/{numberOfPages}</label>
           <button onClick={() => jumpToPage(pageNumber)}>Go</button>
         </div>
         
