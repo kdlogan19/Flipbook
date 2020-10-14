@@ -7,7 +7,6 @@ const ScreenOverlay = (props)=> {
     <div className="screen-overlay" 
       onClick={() => {
           props.setProperty(!props.property);
-        //   props.setOverlayActive(!props.overlayActive);
       }}>
     </div>
   );

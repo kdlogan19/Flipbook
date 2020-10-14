@@ -68,12 +68,12 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={Math.floor(700)}
-                height={900}
+                width={700}
+                height={950}
                 ref={bookRef}
                 showCover={true}
                 className="flip-book"
-                flippingTime={750}
+                flippingTime={900}
                 size="stretch"
                 minHeight={500}
                 minWidth={200}
@@ -83,7 +83,7 @@ function App() {
                 {/* Rest of the pages */}
                 {[...Array(numberOfPages)].map((_, index) => {
                   let path = "/images/" + (index+1) + ".jpg" 
-                  return <Page key={index} image={path} pageNumber={index}/>;
+                  return <Page key={index} image={path} />;
                 })}
               </HTMLFlipBook>
             </div>
