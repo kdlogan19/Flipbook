@@ -11,6 +11,7 @@ import Overlay from './components/Overlay'
 
 function App() {
   var bookRef = React.useRef();
+  var thumbnailsRef = React.useRef();
   var pageNumber = 0;
   let [scale, setscale] = React.useState(1);
   let [showThumbnails, setShowThumbnails] = React.useState(false);
@@ -30,16 +31,20 @@ function App() {
   };
 
   const showThumbnailsFunc = () => {
+    const currentIndex = bookRef.current.pageFlip.getCurrentPageIndex()
+    console.log(currentIndex)
     return (<>
               <Thumbnails
                 turnToPage={jumpToPage} numberOfThumbnails={numberOfPages} 
                 showThumbnails = {showThumbnails}
                 setShowThumbnails= {setShowThumbnails}
+                currentIndex={currentIndex}
               />
               <Overlay setProperty={setShowThumbnails} property={showThumbnails} 
                 overlayActive={overlayActive}
                 setOverlayActive ={setOverlayActive}
               />
+              {/* {thumbnailsRef.scrollTop = 200} */}
             </>)
   }
   
