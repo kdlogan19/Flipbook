@@ -3,15 +3,12 @@ import "./Page.css";
 
 const Page = React.forwardRef((props, ref) => {
   return (
-    <div className="page" ref={ref} style={{marginTop:"100px"}}>
-      <div className="page-content">
-        <div className="page-image">  
-            <img
-              src={props.image}
-              alt="page"
-            />
-          
-        </div>
+    <div className="page" ref={ref} style={{marginTop:"auto"}}>
+      <div className="page-container">
+          <img
+            src={props.image}
+            alt="page"
+          />
       </div>
     </div>
   );

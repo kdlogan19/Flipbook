@@ -5,16 +5,17 @@ import Draggable from "react-draggable";
 import { FaSearchPlus, FaSearchMinus, FaCompress, FaFilePdf, FaImages, FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import Page from "./components/Page";
 import PageCover from "./components/PageCover";
+import Thumbnails from './components/Thumbnails';
+import Overlay from './components/Overlay'
 
 
 function App() {
-  var bookRef;
+  var bookRef = React.useRef();
   var pageNumber = 0;
-  const [scale, setscale] = React.useState(1);
-  
-  var elements = [...Array(10).keys()];
-  const height = window.innerHeight;
-  const width = window.innerWidth;
+  let [scale, setscale] = React.useState(1);
+  let [showThumbnails, setShowThumbnails] = React.useState(false);
+  let [overlayActive, setOverlayActive] = React.useState(false);
+  var numberOfPages = 12; //Input length of book
   
   // Default position of the flipbook.
   const [draggablePos, setdraggablePos] = React.useState({ x: 0, y: 0 });
@@ -22,14 +23,24 @@ function App() {
   // Making flipbook draggable upon zooming.
   let enableDraggable = scale > 1;
 
-  const jumpToPage = () => {
-    if (bookRef) {
-      bookRef.pageFlip.turnToPage(parseInt(pageNumber));
+  const jumpToPage = (pageNum) => {
+    if (bookRef) { 
+      bookRef.current.pageFlip.flip(parseInt(pageNum));
     }
   };
 
-  const showThumbnails = () => {
-
+  const showThumbnailsFunc = () => {
+    return (<>
+              <Thumbnails
+                turnToPage={jumpToPage} numberOfThumbnails={numberOfPages} 
+                showThumbnails = {showThumbnails}
+                setShowThumbnails= {setShowThumbnails}
+              />
+              <Overlay setProperty={setShowThumbnails} property={showThumbnails} 
+                overlayActive={overlayActive}
+                setOverlayActive ={setOverlayActive}
+              />
+            </>)
   }
   
   return (
@@ -49,7 +60,7 @@ function App() {
           >
             <FaChevronCircleLeft   size="7vh"
               className="prev-page-button"
-              onClick={() => bookRef.pageFlip.flipPrev()}
+              onClick={() => bookRef.current.pageFlip.flipPrev()}
             />
             <div
               className={`flipbook-container ${
@@ -57,36 +68,39 @@ function App() {
               }`}
             >
               <HTMLFlipBook
-                width={Math.floor(width*0.3)}
-                height={Math.floor(height*0.8)}
-                ref={(component) => {
-                  bookRef = component;
-                }}
+                width={700}
+                height={950}
+                ref={bookRef}
                 showCover={true}
                 className="flip-book"
-                flippingTime={750}
+                flippingTime={900}
                 size="stretch"
                 minHeight={500}
                 minWidth={200}
               >
                 {/* Book Cover */}
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
-
                 {/* Rest of the pages */}
-                {elements.map((_, index) => {
-                  return <Page key={index} image="/images/page1.jpg" pageNumber={index}/>;
+                {[...Array(numberOfPages)].map((_, index) => {
+                  let path = "/images/" + (index+1) + ".jpg" 
+                  return <Page key={index} image={path} />;
                 })}
               </HTMLFlipBook>
             </div>
-
+            
             <FaChevronCircleRight size="7vh"
               className="next-page-button"
-              onClick={() => bookRef.pageFlip.flipNext()}
+              onClick={() => {
+                bookRef.current.pageFlip.flipNext()
+              } }
             />
           </div>
         </span>
+        
       </Draggable>
-
+      
+      {showThumbnails && showThumbnailsFunc()}
+    
       <div className="footer">
          {/* Zoom-in */}
         <FaSearchPlus
@@ -119,7 +133,7 @@ function App() {
          {/* Show thumbnails */}
         <FaImages
           className="footer-item"
-          onClick={showThumbnails}
+          onClick={() => setShowThumbnails(!showThumbnails)}
         />
 
          {/* Book Navigation by page numbers */}
@@ -129,8 +143,8 @@ function App() {
             type="number"
             onChange={(event) => (pageNumber = event.target.value)}
           ></input>
-          <label>/{elements.length}</label>
-          <button onClick={jumpToPage}>Go</button>
+          <label>/{numberOfPages}</label>
+          <button onClick={() => jumpToPage(pageNumber)}>Go</button>
         </div>
         
       </div>

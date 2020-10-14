@@ -1,0 +1,29 @@
+.thumbnail-container {
+    display: flex;
+    height: 20vh;
+    position: fixed;
+    background-color: rgba(47, 95, 104, 0.445);
+    width: 80vw;
+    z-index: 20;
+    flex-flow: nowrap;
+    overflow-x: scroll;
+}
+
+
+.thumbnail-container::-webkit-scrollbar {
+    height: 5px;
+  }
+
+.thumbnail-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+  }
+
+::-webkit-scrollbar-thumb {
+    background: rgb(65, 106, 122); 
+    border-radius: 10px;
+}
+.thumbnail-container > img {
+    max-height: 100%;
+    max-width: 100%;
+    margin: 10px;
+}
