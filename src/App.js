@@ -30,16 +30,20 @@ function App() {
   };
 
   const showThumbnailsFunc = () => {
+    const currentIndex = bookRef.current.pageFlip.getCurrentPageIndex()
+    console.log(currentIndex)
     return (<>
               <Thumbnails
                 turnToPage={jumpToPage} numberOfThumbnails={numberOfPages} 
                 showThumbnails = {showThumbnails}
                 setShowThumbnails= {setShowThumbnails}
+                currentIndex={currentIndex}
               />
               <Overlay setProperty={setShowThumbnails} property={showThumbnails} 
                 overlayActive={overlayActive}
                 setOverlayActive ={setOverlayActive}
               />
+              {/* {thumbnailsRef.scrollTop = 200} */}
             </>)
   }
   
@@ -77,6 +81,7 @@ function App() {
                 size="stretch"
                 minHeight={500}
                 minWidth={200}
+                // swipeDistance={200}
               >
                 {/* Book Cover */}
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
