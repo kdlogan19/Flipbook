@@ -11,7 +11,6 @@ import Overlay from './components/Overlay'
 
 function App() {
   var bookRef = React.useRef();
-  var thumbnailsRef = React.useRef();
   var pageNumber = 0;
   let [scale, setscale] = React.useState(1);
   let [showThumbnails, setShowThumbnails] = React.useState(false);
@@ -82,6 +81,7 @@ function App() {
                 size="stretch"
                 minHeight={500}
                 minWidth={200}
+                // swipeDistance={200}
               >
                 {/* Book Cover */}
                 <PageCover image="/images/bookcover.png">BOOK TITLE</PageCover>
